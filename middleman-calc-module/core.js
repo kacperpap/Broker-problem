@@ -95,8 +95,6 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
     return { allocationTable, allocationTableRealRoutes, unitProfits, steps, totalCost, totalRevenue, intermediaryProfit };
 }
 
-solveIntermediaryProblem(["s1","s2"], ["c1","c2","c3"], [20,30], [10,28,27], [10,12], [30,25,30], [[8,14,17],[12,9,19]]);
-
 module.exports = solveIntermediaryProblem
 
 

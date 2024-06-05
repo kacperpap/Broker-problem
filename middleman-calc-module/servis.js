@@ -1,5 +1,5 @@
-import {solveIntermediaryProblem} from "./core.js";
-import express from 'express';
+const solveIntermediaryProblem = require("./core.js");
+const express = require('express');
 
 const app = express();
 app.use(express.json());
