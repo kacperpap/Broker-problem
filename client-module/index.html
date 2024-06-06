@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broker problem</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="icon" href="logo.png" type="image/png" />
+  </head>
+  <body>
+    <header>
+      <h1>Broker problem</h1>
+    </header>
+    <main>
+      <section class="main-content">
+        <div id="data-tables">
+          <div id="left-div">
+            <span id="legend">
+              <ul>
+                <li>Demand - gfgf</li>
+                <li>Supply - gf</li>
+                <li>Sales price- fg</li>
+                <li>Cost of transport - gff</li>
+              </ul>
+            </span>
+            <table id="suppliers">
+              <tr>
+                <td class="thead-sup">Supplier 1</td>
+                <td>
+                  <input type="number" placeholder="supply" required min="0" />
+                </td>
+              </tr>
+
+              <tr>
+                <td class="thead-sup">Supplier 2</td>
+                <td>
+                  <input type="number" placeholder="supply" required min="0" />
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <table id="customers">
+            <thead>
+              <tr>
+                <th>Customer 1</th>
+                <th>Customer 2</th>
+                <th>Customer 3</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>
+                  <input type="number" placeholder="demand" required min="0" />
+                </td>
+                <td>
+                  <input type="number" placeholder="demand" required min="0" />
+                </td>
+                <td>
+                  <input type="number" placeholder="demand" required min="0" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="sales price"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="sales price"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="sales price"
+                    required
+                    min="0"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    required
+                    min="0"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    required
+                    min="0"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button id="send-data">Calculate</button>
+      </section>
+      <section id="results">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </section>
+    </main>
+
+    <script src="graph.js"></script>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --main: #efeeeb;
+  --second: #a27b5c;
+  --main-green: #3f4e4f;
+  --main-dark: #2c3639;
+}
+
+body {
+  margin: 0;
+  background-color: var(--main);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+  color: var(--main-dark);
+  text-align: center;
+  margin: 20px;
+  font-size: 1.2rem;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#data-tables {
+  display: flex;
+  flex-direction: row;
+  border-collapse: collapse;
+  padding: 25px;
+  margin: 0 0 12px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px);
+}
+
+#legend {
+  display: block;
+  height: 30%;
+}
+
+#left-div {
+  flex-grow: 1;
+  align-self: flex-end;
+}
+
+#suppliers {
+  height: auto;
+}
+
+#customers {
+  width: 65%;
+}
+
+#data-tables thead tr,
+.thead-sup {
+  background-color: var(--main-green);
+  color: #ffffff;
+  text-align: center;
+}
+
+#data-tables th,
+#data-tables td {
+  padding: 12px 15px;
+}
+
+#data-tables input {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--main-green);
+  outline: 0;
+  font-size: 1.3rem;
+  color: var(--main-green);
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+#data-tables input:focus {
+  &::placeholder {
+    opacity: 0.6;
+    font-weight: 100;
+  }
+
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, var(--main-dark), var(--main-green));
+  border-image-slice: 1;
+}
+
+button {
+  display: block;
+  background-color: var(--main-green);
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 100%;
+  margin: auto;
+  font-weight: 600;
+  line-height: 1.5rem;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  text-decoration: none #6b7280 solid;
+  text-decoration-thickness: auto;
+  transition-duration: 0.3s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+  outline: 3px solid white;
+  opacity: 0.97;
+}
+
+#results {
+  margin: 20px;
+}
