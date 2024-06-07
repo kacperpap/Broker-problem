@@ -4,27 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Broker problem</title>
-    <link rel="stylesheet" href="css/main.css" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
+    <link rel="stylesheet" href="css/results.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="icon" href="resources/logo.png" type="image/png" />
   </head>
   <body>
     <header>
-      <h1>Broker problem</h1>
+      <h1 class="home-title">
+        <span>Broker problem</span>
+        <span class="smaller-text">Simple solution</span>
+      </h1>
     </header>
+    <aside>
+      <span id="legend">
+        <span id="legend-title"
+          ><b>Legend</b>&nbsp;<i class="fa-solid fa-truck-fast"></i
+        ></span>
+        <ul>
+          <li>
+            <b>Supply</b> - quantity of a product that specific
+            <b>supplier</b> offers
+          </li>
+          <li>
+            <b>Buying cost</b> - price offered by <b>supplier</b> for a single
+            product
+          </li>
+          <li>
+            <b>Demand</b> - quantity of a product that specific
+            <b>consumer</b> require
+          </li>
+          <li>
+            <b>Sales price</b> - price that <b>consumer</b> is willing to pay
+            for a single product
+          </li>
+          <li>
+            <b>Cost of transport</b> - unitary cost of transportation from
+            specific <b>supplier</b> to specific <b>consumer</b>
+          </li>
+        </ul>
+      </span>
+    </aside>
     <main>
       <form id="main-content">
         <div id="data-tables">
           <div id="left-div">
-            <span id="legend">
-              <span>Legend</span>
-              <ul>
-                <li>Demand - gfgf</li>
-                <li>Supply - gf</li>
-                <li>Sales price- fg</li>
-                <li>Cost of transport - gff</li>
-              </ul>
-            </span>
+            <div class="table-title">
+              <h2>Broker problem table</h2>
+              <span class="smaller-text">Fill all inputs in a table</span>
+            </div>
             <table id="suppliers">
               <tr>
                 <td class="thead-sup">Supplier 1</td>
@@ -204,15 +239,16 @@
             </tbody>
           </table>
         </div>
-        <input type="submit" value="Calculate" id="submit-input">
+        <input type="submit" value="Calculate" id="submit-input" />
         <!-- <button id="send-data">Calculate</button> -->
       </form>
       <section id="results">
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <canvas id="results-chart"></canvas>
+        <div id="results-info"></div>
       </section>
     </main>
 
-    <script type="module" src="js/graph.js"></script>
+    <!-- <script type="module" src="js/graph.js"></script> -->
     <script type="module" src="js/input-manager.js"></script>
   </body>
 </html>

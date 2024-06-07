@@ -1,0 +1,13 @@
+#results {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 27%;
+  width: 70%;
+  min-width: 400px;
+}
+
+#results-chart,
+#results-info {
+  width: 50%;
+}

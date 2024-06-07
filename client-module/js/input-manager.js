@@ -1,11 +1,9 @@
 import { showResults } from "./output-manager.js";
 
-document
-  .getElementById("main-content")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    prepareDataToSend();
-  });
+document.getElementById("main-content").addEventListener("submit", (event) => {
+  event.preventDefault();
+  prepareDataToSend();
+});
 
 function prepareDataToSend() {
   const suppliers = ["Supplier1", "Supplier2"];
@@ -13,24 +11,24 @@ function prepareDataToSend() {
 
   const supply = Array.from(
     document.getElementsByClassName("supply-input")
-  ).map((input) => input.value);
+  ).map((input) => parseInt(input.value), 10);
   const demand = Array.from(
     document.getElementsByClassName("demand-input")
-  ).map((input) => input.value);
+  ).map((input) => parseInt(input.value), 10);
   const purchaseCosts = Array.from(
     document.getElementsByClassName("buy-input")
-  ).map((input) => input.value);
+  ).map((input) => parseInt(input.value), 10);
 
   const sellingCosts = Array.from(
     document.getElementsByClassName("sales-input")
-  ).map((input) => input.value);
+  ).map((input) => parseInt(input.value), 10);
 
   const transportTmp = Array.from(
     document.getElementsByClassName("cost-input")
   );
   const transportationCosts = [
-    transportTmp.map((input) => input.value).slice(0, 3),
-    transportTmp.map((input) => input.value).slice(3, 6),
+    transportTmp.map((input) => parseInt(input.value), 10).slice(0, 3),
+    transportTmp.map((input) => parseInt(input.value), 10).slice(3, 6),
   ];
 
   const objectToSend = {
@@ -42,6 +40,19 @@ function prepareDataToSend() {
     sellingCosts,
     transportationCosts,
   };
+
+  // test
+  // const obj2={
+  //   suppliers: ["s1","s2"],
+  //   consumers: ["c1","c2","c3"],
+  //   supply: [20,40],
+  //   demand: [16,12,24],
+  //   purchaseCosts: [7, 8],
+  //   sellingCosts: [18,16,15],
+  //   transportationCosts: [[4,7,2],[8,10,4]]
+  // }
+
+  console.log(objectToSend);
   if (validateInputs(objectToSend)) send(objectToSend);
   else alert("Please fill out all fields.");
 }
@@ -77,4 +88,3 @@ async function send(dataToSend) {
     console.error("Error:", error);
   }
 }
-
