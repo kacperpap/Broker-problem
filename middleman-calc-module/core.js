@@ -37,7 +37,10 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
     let allocationTable = initializeAllocationTable(suppliers.length, consumers.length);
     let steps = [];
 
-    allocationTable = getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitProfits, allocationTable);
+    //TODO:check if methods differ in sizes due to isBalanced
+    // allocationTable = getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, unitProfits, allocationTable);
+    allocationTable = getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitProfits, allocationTable, isBalanced)
+    // allocationTable = getInitialFeasibleSolutionNorthWestCornerMethod(supply, demand, unitProfits, allocationTable)
 
     console.log("Initial feasible solution:")
     console.log(allocationTable)
@@ -97,4 +100,5 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
 
 module.exports = solveIntermediaryProblem
 
-
+// solveIntermediaryProblem(["s1","s2", "s3"], ["c1","c2", "c3"], [10,17,13], [7,8,11], [12,10,13], [22,20,23], [[3,3,5],[7,7,8],[3,8,6]]);
+solveIntermediaryProblem(["s1","s2"], ["c1","c2","c3"], [20,30], [10,28,27], [10,12], [30,25,30], [[8,14,17],[12,9,19]]);
