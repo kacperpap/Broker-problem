@@ -2,6 +2,25 @@ function initializeAllocationTable(rows, cols) {
     return Array.from({length: rows}, () => Array(cols).fill(0));
 }
 
+function validateInputs(suppliers, consumers, supply, demand, purchaseCosts, sellingCosts, transportationCosts) {
+    if (!Array.isArray(suppliers) || !Array.isArray(consumers) || !Array.isArray(supply) ||
+        !Array.isArray(demand) || !Array.isArray(purchaseCosts) || !Array.isArray(sellingCosts) || !Array.isArray(transportationCosts)) {
+        throw new Error("All inputs must be arrays.");
+    }
+    if (suppliers.length !== supply.length) {
+        throw new Error("Number of suppliers must match the length of supply array.");
+    }
+    if (consumers.length !== demand.length) {
+        throw new Error("Number of consumers must match the length of demand array.");
+    }
+    if (!supply.every(value => value > 0) || !demand.every(value => value > 0) || !purchaseCosts.every(value => value > 0) || !sellingCosts.every(value => value > 0) || !transportationCosts.every(row => row.every(value => value >= 0))) {
+        throw new Error("Supply, demand, purchase costs, selling costs must be positive and transportation costs must be non-negative.");
+    }
+    if (purchaseCosts.length !== suppliers.length || sellingCosts.length !== consumers.length || transportationCosts.length !== suppliers.length || !transportationCosts.every(row => row.length === consumers.length)) {
+        throw new Error("Mismatch in dimensions of input arrays.");
+    }
+}
+
 
 function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitProfits, allocationTable, isBalanced) {
     let remainingSupply = [...supply];
@@ -417,5 +436,5 @@ function calculateTotalProfit(allocationTable, unitProfits) {
 module.exports = {calculateTotalProfit, calculateTotalRevenue,
     calculateTotalCost, calculateDeltas, calculateUnitProfits,
     getInitialFeasibleSolutionNorthWestCornerMethod, getInitialFeasibleSolutionMaxMatrixElementMethod, getInitialFeasibleSolutionMaxMatrixElementMethodStrict,
-    findSteppingStonePath,applyEPerturbation, optimizeAllocation, initializeAllocationTable, }
+    findSteppingStonePath,applyEPerturbation, optimizeAllocation, initializeAllocationTable, validateInputs}
 

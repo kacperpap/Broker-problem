@@ -3,9 +3,19 @@ const {
     calculateTotalCost, calculateTotalProfit, calculateTotalRevenue, calculateUnitProfits,
     getInitialFeasibleSolutionMaxMatrixElementMethod, getInitialFeasibleSolutionNorthWestCornerMethod, getInitialFeasibleSolutionMaxMatrixElementMethodStrict,
     initializeAllocationTable,
-    optimizeAllocation, applyEPerturbation
+    optimizeAllocation, applyEPerturbation,
+    validateInputs
 } = require("./helpers.js")
+
+
 function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchaseCosts, sellingCosts, transportationCosts) {
+
+    try {
+        validateInputs(suppliers, consumers, supply, demand, purchaseCosts, sellingCosts, transportationCosts);
+    } catch (error) {
+        return { error: error.message };
+    }
+
     console.log("solveIntermediaryProblem:\n")
     const totalSupply = supply.reduce((acc, val) => acc + val, 0);
     const totalDemand = demand.reduce((acc, val) => acc + val, 0);
@@ -44,7 +54,7 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
     console.log("Initial feasible solution:")
     console.log(allocationTable)
 
-    //TODO: Apply e-perturbation if needed
+    // Apply e-perturbation if needed
     const requiredBaseRoutes = suppliers.length + consumers.length - 1;
     const actualBaseRoutes = allocationTable.flat().filter(value => value > 0).length;
     if (actualBaseRoutes < requiredBaseRoutes) {

@@ -7,7 +7,11 @@ app.use(express.json());
 app.post('/calculate', (req, res) => {
     const { suppliers, consumers, supply, demand, purchaseCosts, sellingCosts, transportationCosts } = req.body;
     const result = solveIntermediaryProblem(suppliers, consumers, supply, demand, purchaseCosts, sellingCosts, transportationCosts);
-    res.json(result);
+    if (result.error) {
+        res.status(400).json({ error: result.error });
+    } else {
+        res.json(result);
+    }
 });
 
 app.listen(3000, () => {
