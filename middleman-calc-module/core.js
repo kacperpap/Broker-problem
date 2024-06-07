@@ -82,12 +82,15 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
         }
 
         let postOptimizationTable = JSON.parse(JSON.stringify(allocationTable));
+        let intermediaryProfit = calculateTotalProfit(postOptimizationTable, unitProfits);
+
 
         steps.push({
             preOptimizationTable,
             postOptimizationTable,
             deltas,
-            deltaTable
+            deltaTable,
+            intermediaryProfit
         });
     }
 
@@ -110,6 +113,3 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
 }
 
 module.exports = solveIntermediaryProblem
-
-const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2"], [13,27], [19,21], [6,9], [13,15], [[3,2],[7,1]]);
-
