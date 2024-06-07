@@ -2,19 +2,40 @@ function initializeAllocationTable(rows, cols) {
     return Array.from({length: rows}, () => Array(cols).fill(0));
 }
 
+function validateInputs(suppliers, consumers, supply, demand, purchaseCosts, sellingCosts, transportationCosts) {
+    if (!Array.isArray(suppliers) || !Array.isArray(consumers) || !Array.isArray(supply) ||
+        !Array.isArray(demand) || !Array.isArray(purchaseCosts) || !Array.isArray(sellingCosts) || !Array.isArray(transportationCosts)) {
+        throw new Error("All inputs must be arrays.");
+    }
+    if (suppliers.length !== supply.length) {
+        throw new Error("Number of suppliers must match the length of supply array.");
+    }
+    if (consumers.length !== demand.length) {
+        throw new Error("Number of consumers must match the length of demand array.");
+    }
+    if (!supply.every(value => value > 0) || !demand.every(value => value > 0) || !purchaseCosts.every(value => value > 0) || !sellingCosts.every(value => value > 0) || !transportationCosts.every(row => row.every(value => value >= 0))) {
+        throw new Error("Supply, demand, purchase costs, selling costs must be positive and transportation costs must be non-negative.");
+    }
+    if (purchaseCosts.length !== suppliers.length || sellingCosts.length !== consumers.length || transportationCosts.length !== suppliers.length || !transportationCosts.every(row => row.length === consumers.length)) {
+        throw new Error("Mismatch in dimensions of input arrays.");
+    }
+}
 
-function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitProfits, allocationTable) {
+
+function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitProfits, allocationTable, isBalanced) {
     let remainingSupply = [...supply];
     let remainingDemand = [...demand];
 
-    // Allocate demand and supply for real suppliers and consumers first
     while (remainingSupply.some(s => s > 0) && remainingDemand.some(d => d > 0)) {
         let maxProfit = -Infinity;
         let maxRow = -1;
         let maxCol = -1;
 
-        for (let i = 0; i < unitProfits.length - 1; i++) { // Exclude fictitious supplier
-            for (let j = 0; j < unitProfits[i].length - 1; j++) { // Exclude fictitious consumer
+        /***
+         Number(!isBalanced) excludes fictitious supplier and consumer if exists
+         ***/
+        for (let i = 0; i < unitProfits.length - Number(!isBalanced); i++) {
+            for (let j = 0; j < unitProfits[i].length - Number(!isBalanced); j++) {
                 if (remainingSupply[i] > 0 && remainingDemand[j] > 0 && unitProfits[i][j] > maxProfit) {
                     maxProfit = unitProfits[i][j];
                     maxRow = i;
@@ -23,7 +44,7 @@ function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitPr
             }
         }
 
-        if (maxRow === -1 || maxCol === -1) break; // Break if no valid allocation found
+        if (maxRow === -1 || maxCol === -1) break;
 
         let allocation = Math.min(remainingSupply[maxRow], remainingDemand[maxCol]);
         allocationTable[maxRow][maxCol] = allocation;
@@ -31,7 +52,6 @@ function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitPr
         remainingDemand[maxCol] -= allocation;
     }
 
-    // Allocate remaining supply and demand including fictitious suppliers and consumers
     while (remainingSupply.some(s => s > 0) && remainingDemand.some(d => d > 0)) {
         let maxProfit = -Infinity;
         let maxRow = -1;
@@ -47,7 +67,7 @@ function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitPr
             }
         }
 
-        if (maxRow === -1 || maxCol === -1) break; // Break if no valid allocation found
+        if (maxRow === -1 || maxCol === -1) break;
 
         let allocation = Math.min(remainingSupply[maxRow], remainingDemand[maxCol]);
         allocationTable[maxRow][maxCol] = allocation;
@@ -57,6 +77,7 @@ function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitPr
 
     return allocationTable;
 }
+
 function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, unitProfits, allocationTable) {
     let remainingSupply = [...supply];
     let remainingDemand = [...demand];
@@ -67,11 +88,11 @@ function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, 
         let maxCol = -1;
 
         /***
-        Looking for max element in individual unit profit table involves
-        searching in rows and columns of fictitious actors, thus if the
-        profit of real actor in some route is negative, it will be included
-        after fictitious route if needed (more strict condition of positive profits)
-        ***/
+         Looking for max element in individual unit profit table involves
+         searching in rows and columns of fictitious actors, thus if the
+         profit of real actor in some route is negative, it will be included
+         after fictitious route if needed (more strict condition of positive profits)
+         ***/
 
         for (let i = 0; i < unitProfits.length; i++) {
             for (let j = 0; j < unitProfits[i].length; j++) {
@@ -83,6 +104,8 @@ function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, 
             }
         }
 
+        if (maxRow === -1 || maxCol === -1) break;
+
         let allocation = Math.min(remainingSupply[maxRow], remainingDemand[maxCol]);
         allocationTable[maxRow][maxCol] = allocation;
         remainingSupply[maxRow] -= allocation;
@@ -91,34 +114,29 @@ function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, 
 
     return allocationTable;
 }
+
 
 function getInitialFeasibleSolutionNorthWestCornerMethod(supply, demand, unitProfits, allocationTable) {
     let remainingSupply = [...supply];
     let remainingDemand = [...demand];
+    let i = 0;
+    let j = 0;
 
     while (remainingSupply.some(s => s > 0) && remainingDemand.some(d => d > 0)) {
-        let maxProfit = -Infinity;
-        let maxRow = -1;
-        let maxCol = -1;
-
-        for (let i = 0; i < unitProfits.length; i++) {
-            for (let j = 0; j < unitProfits[i].length; j++) {
-                if (remainingSupply[i] > 0 && remainingDemand[j] > 0 && unitProfits[i][j] > maxProfit) {
-                    maxProfit = unitProfits[i][j];
-                    maxRow = i;
-                    maxCol = j;
-                }
-            }
+        if (remainingSupply[i] > 0 && remainingDemand[j] > 0) {
+            let allocation = Math.min(remainingSupply[i], remainingDemand[j]);
+            allocationTable[i][j] = allocation;
+            remainingSupply[i] -= allocation;
+            remainingDemand[j] -= allocation;
         }
 
-        let allocation = Math.min(remainingSupply[maxRow], remainingDemand[maxCol]);
-        allocationTable[maxRow][maxCol] = allocation;
-        remainingSupply[maxRow] -= allocation;
-        remainingDemand[maxCol] -= allocation;
+        if (remainingSupply[i] === 0) i++;
+        if (remainingDemand[j] === 0) j++;
     }
 
     return allocationTable;
 }
+
 
 function calculateUnitProfits(sellingCosts, purchaseCosts, transportationCosts) {
     let unitProfits = [];
@@ -181,6 +199,14 @@ function calculateDeltas(allocationTable, unitProfits) {
     return { deltas, deltaTable };
 }
 
+/***
+ While pos at the input to findSteppingStonePath is the position in deltas table of maximum non-base indicator (delta),
+ positions in path are cycle comprised of elements in negative and positive half-cycles. First positive pos is the pos from input,
+ next founded in path belongs to negative cycle, next to positive and so on. Therefore, looping from second element in path, loops
+ only through negative cycle, and finds there minimum value, which then needs to be added to positive cycle elements (allocationRoutes),
+ and subtracted from negative cycle elements (allocationRoutes)
+ ***/
+
 function optimizeAllocation(allocationTable, deltaTable) {
     let maxDelta = -Infinity;
     let pos = { i: -1, j: -1 };
@@ -198,16 +224,21 @@ function optimizeAllocation(allocationTable, deltaTable) {
         return allocationTable;
     }
 
-    const path = findSteppingStonePath(allocationTable, pos);
+    const { cycle, valid } = findSteppingStonePath(allocationTable, pos);
+
+    if (!valid) {
+        console.error("Invalid cycle found!");
+        return allocationTable;
+    }
 
     let minAllocation = Infinity;
-    for (let k = 1; k < path.length; k += 2) {
-        const { i, j } = path[k];
+    for (let k = 1; k < cycle.length; k += 2) {
+        const { i, j } = cycle[k];
         minAllocation = Math.min(minAllocation, allocationTable[i][j]);
     }
 
-    for (let k = 0; k < path.length; k++) {
-        const { i, j } = path[k];
+    for (let k = 0; k < cycle.length; k++) {
+        const { i, j } = cycle[k];
         if (k % 2 === 0) {
             allocationTable[i][j] += minAllocation;
         } else {
@@ -218,53 +249,117 @@ function optimizeAllocation(allocationTable, deltaTable) {
     return allocationTable;
 }
 
-function findSteppingStonePath(allocationTable, start) {
-    const path = [start];
-    const { i: startI, j: startJ } = start;
-    let i = startI;
-    let j = startJ;
+function findSteppingStonePath(allocationTable, pos) {
+    const cycle = [];
+    const rows = allocationTable.length;
+    const cols = allocationTable[0].length;
+
+    function isBasicVariable(i, j) {
+        return allocationTable[i][j] > 0;
+    }
+
+    cycle.push({ i: pos.i, j: pos.j, type: 'positive' });
+
+    const tempValue = allocationTable[pos.i][pos.j];
+    allocationTable[pos.i][pos.j] = 1;
+
+    function searchNextElement(current, direction, excluded) {
+        const { i, j } = current;
+        if (direction === 'horizontal') {
+            for (let jj = 0; jj < cols; jj++) {
+                if (jj !== j && isBasicVariable(i, jj) && !(excluded && excluded.i === i && excluded.j === jj)) {
+                    return { i, j: jj };
+                }
+            }
+        } else if (direction === 'vertical') {
+            for (let ii = 0; ii < rows; ii++) {
+                if (ii !== i && isBasicVariable(ii, j) && !(excluded && excluded.i === ii && excluded.j === j)) {
+                    return { i: ii, j };
+                }
+            }
+        }
+        return null;
+    }
+
+    let current = { i: pos.i, j: pos.j };
     let direction = 'horizontal';
+    let type = 'negative';
+    let excluded = null;
 
     while (true) {
-        if (direction === 'horizontal') {
-            let found = false;
-            for (let col = 0; col < allocationTable[i].length; col++) {
-                if (col !== j && allocationTable[i][col] > 0) {
-                    path.push({ i, j: col });
-                    j = col;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) break;
-            direction = 'vertical';
-        } else {
-            let found = false;
-            for (let row = 0; row < allocationTable.length; row++) {
-                if (row !== i && allocationTable[row][j] > 0) {
-                    path.push({ i: row, j });
-                    i = row;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) break;
-            direction = 'horizontal';
+        let nextElement = searchNextElement(current, direction, excluded);
+        if (!nextElement) {
+            /***
+             Backtrack: remove the last element and try a different path
+             We are looking for next elements step by step, that is why
+             we can find the element that does not have its next element,
+             and also is not the ending point (starting point), so we need
+             to remove it and search for another option excluding this one
+             element in current iteration, so a new one can be found
+             ***/
+            excluded = cycle.pop();
+            if (cycle.length === 0) break;
+            current = cycle[cycle.length - 1];
+            direction = direction === 'horizontal' ? 'vertical' : 'horizontal';
+            type = cycle.length % 2 === 0 ? 'positive' : 'negative';
+            continue;
         }
-        if (i === startI && j === startJ) break;
+
+        if (nextElement.i === pos.i && nextElement.j === pos.j) {
+            break;
+        }
+
+        excluded = null;
+        nextElement.type = type;
+        cycle.push(nextElement);
+
+        current = nextElement;
+        direction = direction === 'horizontal' ? 'vertical' : 'horizontal';
+        type = cycle.length % 2 === 0 ? 'positive' : 'negative';
     }
 
-    const cycle = [];
-    for (let k = 0; k < path.length; k++) {
-        const { i, j } = path[k];
-        if (k % 2 === 0) {
-            cycle.push({ i, j, type: 'positive' });
-        } else {
-            cycle.push({ i, j, type: 'negative' });
+    allocationTable[pos.i][pos.j] = tempValue;
+
+    if (validateCycle(cycle,allocationTable) && validateSupplyDemand(allocationTable,cycle)) {
+        return { cycle, valid: true };
+    } else {
+        return { cycle, valid: false };
+    }
+}
+
+function validateCycle(cycle, allocationTable) {
+    if (cycle.length < 4) {
+        return false;
+    }
+
+    const rowCounts = new Array(allocationTable.length).fill(0);
+    const colCounts = new Array(allocationTable[0].length).fill(0);
+
+    for (const { i, j } of cycle) {
+        rowCounts[i]++;
+        colCounts[j]++;
+    }
+
+    for (const count of rowCounts.concat(colCounts)) {
+        if (count !== 0 && count !== 2) {
+            return false;
         }
     }
 
-    return cycle;
+    return true;
+}
+
+function validateSupplyDemand(allocationTable, cycle) {
+    const rowSums = new Array(allocationTable.length).fill(0);
+    const colSums = new Array(allocationTable[0].length).fill(0);
+
+    cycle.forEach(({ i, j, type }) => {
+        const value = type === 'positive' ? 1 : -1;
+        rowSums[i] += value;
+        colSums[j] += value;
+    });
+
+    return rowSums.every(sum => sum === 0) && colSums.every(sum => sum === 0);
 }
 
 function applyEPerturbation(allocationTable, requiredBaseRoutes) {
@@ -341,5 +436,5 @@ function calculateTotalProfit(allocationTable, unitProfits) {
 module.exports = {calculateTotalProfit, calculateTotalRevenue,
     calculateTotalCost, calculateDeltas, calculateUnitProfits,
     getInitialFeasibleSolutionNorthWestCornerMethod, getInitialFeasibleSolutionMaxMatrixElementMethod, getInitialFeasibleSolutionMaxMatrixElementMethodStrict,
-    findSteppingStonePath,applyEPerturbation, optimizeAllocation, initializeAllocationTable, }
+    findSteppingStonePath,applyEPerturbation, optimizeAllocation, initializeAllocationTable, validateInputs}
 
