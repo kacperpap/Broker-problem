@@ -79,6 +79,12 @@ describe('solveIntermediaryProblem Tests', () => {
         expect(result.intermediaryProfit).toBe(139);
     });
 
+    //BALANCED case, "INVALID CYCLE" LOOPBACK  ERROR
+    test('Test Case 11', ()=>{
+        const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2"], [13,27], [19,21], [6,9], [13,15], [[3,2],[7,1]]);
+        expect(result.intermediaryProfit).toBe(139);
+    })
+
 
     //TODO: e-perturbation case
 });

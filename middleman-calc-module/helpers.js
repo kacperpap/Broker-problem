@@ -58,6 +58,7 @@ function getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitPr
 
     return allocationTable;
 }
+
 function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, unitProfits, allocationTable) {
     let remainingSupply = [...supply];
     let remainingDemand = [...demand];
@@ -68,11 +69,11 @@ function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, 
         let maxCol = -1;
 
         /***
-        Looking for max element in individual unit profit table involves
-        searching in rows and columns of fictitious actors, thus if the
-        profit of real actor in some route is negative, it will be included
-        after fictitious route if needed (more strict condition of positive profits)
-        ***/
+         Looking for max element in individual unit profit table involves
+         searching in rows and columns of fictitious actors, thus if the
+         profit of real actor in some route is negative, it will be included
+         after fictitious route if needed (more strict condition of positive profits)
+         ***/
 
         for (let i = 0; i < unitProfits.length; i++) {
             for (let j = 0; j < unitProfits[i].length; j++) {
@@ -84,6 +85,8 @@ function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, 
             }
         }
 
+        if (maxRow === -1 || maxCol === -1) break;
+
         let allocation = Math.min(remainingSupply[maxRow], remainingDemand[maxCol]);
         allocationTable[maxRow][maxCol] = allocation;
         remainingSupply[maxRow] -= allocation;
@@ -92,34 +95,29 @@ function getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, 
 
     return allocationTable;
 }
+
 
 function getInitialFeasibleSolutionNorthWestCornerMethod(supply, demand, unitProfits, allocationTable) {
     let remainingSupply = [...supply];
     let remainingDemand = [...demand];
+    let i = 0;
+    let j = 0;
 
     while (remainingSupply.some(s => s > 0) && remainingDemand.some(d => d > 0)) {
-        let maxProfit = -Infinity;
-        let maxRow = -1;
-        let maxCol = -1;
-
-        for (let i = 0; i < unitProfits.length; i++) {
-            for (let j = 0; j < unitProfits[i].length; j++) {
-                if (remainingSupply[i] > 0 && remainingDemand[j] > 0 && unitProfits[i][j] > maxProfit) {
-                    maxProfit = unitProfits[i][j];
-                    maxRow = i;
-                    maxCol = j;
-                }
-            }
+        if (remainingSupply[i] > 0 && remainingDemand[j] > 0) {
+            let allocation = Math.min(remainingSupply[i], remainingDemand[j]);
+            allocationTable[i][j] = allocation;
+            remainingSupply[i] -= allocation;
+            remainingDemand[j] -= allocation;
         }
 
-        let allocation = Math.min(remainingSupply[maxRow], remainingDemand[maxCol]);
-        allocationTable[maxRow][maxCol] = allocation;
-        remainingSupply[maxRow] -= allocation;
-        remainingDemand[maxCol] -= allocation;
+        if (remainingSupply[i] === 0) i++;
+        if (remainingDemand[j] === 0) j++;
     }
 
     return allocationTable;
 }
+
 
 function calculateUnitProfits(sellingCosts, purchaseCosts, transportationCosts) {
     let unitProfits = [];
@@ -311,7 +309,7 @@ function findSteppingStonePath(allocationTable, pos) {
 }
 
 function validateCycle(cycle, allocationTable) {
-    if (cycle.length < 4 || cycle.length > allocationTable.length + allocationTable[0].length - 1) {
+    if (cycle.length < 4) {
         return false;
     }
 

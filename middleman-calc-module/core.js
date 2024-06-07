@@ -37,7 +37,6 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
     let allocationTable = initializeAllocationTable(suppliers.length, consumers.length);
     let steps = [];
 
-    //TODO:check if methods differ in sizes due to isBalanced
     // allocationTable = getInitialFeasibleSolutionMaxMatrixElementMethodStrict(supply, demand, unitProfits, allocationTable);
     allocationTable = getInitialFeasibleSolutionMaxMatrixElementMethod(supply, demand, unitProfits, allocationTable, isBalanced)
     // allocationTable = getInitialFeasibleSolutionNorthWestCornerMethod(supply, demand, unitProfits, allocationTable)
@@ -54,26 +53,35 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
 
     let optimized = false;
     while (!optimized) {
-        console.log("Optimizing solution:")
+        console.log("Optimizing solution:");
         const { deltas, deltaTable } = calculateDeltas(allocationTable, unitProfits);
-        console.log("Calculated deltas (z_ij - u_i - v_j = 0):")
-        console.log(deltas)
-        console.log("Deltas shown in table - nulls are base routes")
-        console.log(deltaTable)
+        console.log("Calculated deltas (z_ij - u_i - v_j = 0):");
+        console.log(deltas);
+        console.log("Deltas shown in table - nulls are base routes:");
+        console.log(deltaTable);
 
-        let preOptimizationTable = JSON.parse(JSON.stringify(allocationTable)); // Clone the table before optimization
+        let preOptimizationTable = JSON.parse(JSON.stringify(allocationTable));
 
         if (deltas.every(delta => delta <= 0)) {
             optimized = true;
-            console.log("All deltas non-positive -> routes are fully optimized")
+            console.log("All deltas non-positive -> routes are fully optimized");
         } else {
-            console.log("Creating new routes allocations:")
-            allocationTable = optimizeAllocation(allocationTable, deltaTable);
-            console.log("New allocation table:")
-            console.log(allocationTable)
+            console.log("Creating new routes allocations:");
+            let newAllocationTable = optimizeAllocation(allocationTable, deltaTable);
+            if (newAllocationTable === null) {
+                console.log("Optimization ended due to invalid cycle.");
+                break;
+            }
+            if (steps.some(step => JSON.stringify(step.postOptimizationTable) === JSON.stringify(newAllocationTable))) {
+                console.log("Optimization ended due to cycle in solutions.");
+                break;
+            }
+            allocationTable = newAllocationTable;
+            console.log("New allocation table:");
+            console.log(allocationTable);
         }
 
-        let postOptimizationTable = JSON.parse(JSON.stringify(allocationTable)); // Clone the table after optimization
+        let postOptimizationTable = JSON.parse(JSON.stringify(allocationTable));
 
         steps.push({
             preOptimizationTable,
@@ -82,6 +90,9 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
             deltaTable
         });
     }
+
+    let bestStep = steps.reduce((max, step) => step.intermediaryProfit > max.intermediaryProfit ? step : max, steps[0]);
+    allocationTable = bestStep.postOptimizationTable;
 
     const totalCost = calculateTotalCost(allocationTable, transportationCosts, purchaseCosts, sellingCosts);
     console.log("Total cost: " + totalCost)
@@ -99,4 +110,6 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
 }
 
 module.exports = solveIntermediaryProblem
+
+const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2"], [13,27], [19,21], [6,9], [13,15], [[3,2],[7,1]]);
 
