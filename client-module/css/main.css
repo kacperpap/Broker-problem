@@ -3,7 +3,7 @@
 }
 
 :root {
-  --main: #efeeeb;
+  --main: #e6e2d7;
   --second: #a27b5c;
   --main-green: #3f4e4f;
   --main-dark: #2c3639;
@@ -32,7 +32,7 @@ main {
   margin: auto;
 }
 
-.main-content{
+#main-content{
   min-width: 850px;
 }
 
@@ -115,7 +115,7 @@ main {
   border-image-slice: 1;
 }
 
-button {
+#submit-input {
   display: block;
   background-color: var(--main-green);
   border: 1px solid transparent;
@@ -136,7 +136,7 @@ button {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-button:hover {
+#submit-input:hover {
   outline: 3px solid white;
   opacity: 0.97;
 }

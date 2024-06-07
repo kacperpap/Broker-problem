@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Broker problem</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <link rel="icon" href="logo.png" type="image/png" />
   </head>
@@ -13,7 +13,7 @@
       <h1>Broker problem</h1>
     </header>
     <main>
-      <section class="main-content">
+      <form id="main-content">
         <div id="data-tables">
           <div id="left-div">
             <span id="legend">
@@ -204,14 +204,15 @@
             </tbody>
           </table>
         </div>
-        <button id="send-data">Calculate</button>
-      </section>
+        <input type="submit" value="Calculate" id="submit-input">
+        <!-- <button id="send-data">Calculate</button> -->
+      </form>
       <section id="results">
         <canvas id="myChart" width="400" height="400"></canvas>
       </section>
     </main>
 
-    <script src="js/graph.js"></script>
-    <script src="js/calculate.js"></script>
+    <script type="module" src="js/graph.js"></script>
+    <script type="module" src="js/input-manager.js"></script>
   </body>
 </html>
