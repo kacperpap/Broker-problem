@@ -17,6 +17,7 @@
         <div id="data-tables">
           <div id="left-div">
             <span id="legend">
+              <span>Legend</span>
               <ul>
                 <li>Demand - gfgf</li>
                 <li>Supply - gf</li>
@@ -28,14 +29,44 @@
               <tr>
                 <td class="thead-sup">Supplier 1</td>
                 <td>
-                  <input type="number" placeholder="supply" required min="0" />
+                  <input
+                    type="number"
+                    placeholder="supply"
+                    class="supply-input"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="buying cost"
+                    class="buy-input"
+                    required
+                    min="0"
+                  />
                 </td>
               </tr>
 
               <tr>
                 <td class="thead-sup">Supplier 2</td>
                 <td>
-                  <input type="number" placeholder="supply" required min="0" />
+                  <input
+                    type="number"
+                    placeholder="supply"
+                    class="supply-input"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="buying cost"
+                    class="buy-input"
+                    required
+                    min="0"
+                  />
                 </td>
               </tr>
             </table>
@@ -53,21 +84,10 @@
             <tbody>
               <tr>
                 <td>
-                  <input type="number" placeholder="demand" required min="0" />
-                </td>
-                <td>
-                  <input type="number" placeholder="demand" required min="0" />
-                </td>
-                <td>
-                  <input type="number" placeholder="demand" required min="0" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>
                   <input
                     type="number"
-                    placeholder="sales price"
+                    placeholder="demand"
+                    class="demand-input"
                     required
                     min="0"
                   />
@@ -75,7 +95,8 @@
                 <td>
                   <input
                     type="number"
-                    placeholder="sales price"
+                    placeholder="demand"
+                    class="demand-input"
                     required
                     min="0"
                   />
@@ -83,7 +104,8 @@
                 <td>
                   <input
                     type="number"
-                    placeholder="sales price"
+                    placeholder="demand"
+                    class="demand-input"
                     required
                     min="0"
                   />
@@ -94,7 +116,8 @@
                 <td>
                   <input
                     type="number"
-                    placeholder="cost of transport"
+                    placeholder="sales price"
+                    class="sales-input"
                     required
                     min="0"
                   />
@@ -102,7 +125,8 @@
                 <td>
                   <input
                     type="number"
-                    placeholder="cost of transport"
+                    placeholder="sales price"
+                    class="sales-input"
                     required
                     min="0"
                   />
@@ -110,7 +134,8 @@
                 <td>
                   <input
                     type="number"
-                    placeholder="cost of transport"
+                    placeholder="sales price"
+                    class="sales-input"
                     required
                     min="0"
                   />
@@ -122,6 +147,7 @@
                   <input
                     type="number"
                     placeholder="cost of transport"
+                    class="cost-input"
                     required
                     min="0"
                   />
@@ -130,6 +156,7 @@
                   <input
                     type="number"
                     placeholder="cost of transport"
+                    class="cost-input"
                     required
                     min="0"
                   />
@@ -138,6 +165,37 @@
                   <input
                     type="number"
                     placeholder="cost of transport"
+                    class="cost-input"
+                    required
+                    min="0"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    class="cost-input"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    class="cost-input"
+                    required
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="cost of transport"
+                    class="cost-input"
                     required
                     min="0"
                   />
@@ -153,6 +211,7 @@
       </section>
     </main>
 
-    <script src="graph.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/calculate.js"></script>
   </body>
 </html>

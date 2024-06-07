@@ -28,6 +28,12 @@ main {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+}
+
+.main-content{
+  min-width: 850px;
 }
 
 #data-tables {
@@ -49,6 +55,7 @@ main {
 #legend {
   display: block;
   height: 30%;
+  color: var(--main-green)
 }
 
 #left-div {
@@ -69,6 +76,7 @@ main {
   background-color: var(--main-green);
   color: #ffffff;
   text-align: center;
+  width: 30%;
 }
 
 #data-tables th,
