@@ -18,13 +18,13 @@ describe('solveIntermediaryProblem Tests', () => {
         expect(result.intermediaryProfit).toBe(196);
     });
 
-    // test('Test Case 3', () => {
-    //     const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2"], [45,25], [30,30], [6,7], [12,13], [[7,4],[3,5]]);
-    //     expect(result.allocationTable).toEqual([[0,30,15],[25,0,0]]);
-    //     expect(result.totalCost).toBe(550);
-    //     expect(result.totalRevenue).toBe(690);
-    //     expect(result.intermediaryProfit).toBe(140);
-    // });
+    test('Test Case 3', () => {
+        const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2"], [45,25], [30,30], [6,7], [12,13], [[7,4],[3,5]]);
+        expect(result.allocationTable).toEqual([[0,30,15],[25,0,0],[5,0,55]]);
+        expect(result.totalCost).toBe(550);
+        expect(result.totalRevenue).toBe(690);
+        expect(result.intermediaryProfit).toBe(140);
+    });
 
     test('Test Case 4', () => {
         const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2","c3"], [40,25], [30,15,15], [18,20], [23,21,25], [[2,3,5],[2,3,4]]);
@@ -52,17 +52,17 @@ describe('solveIntermediaryProblem Tests', () => {
 
 
     // Does not end (zad 6)
-    // test('Test Case 7', () => {
-    //     const result = solveIntermediaryProblem(["s1","s2", "s3"], ["c1","c2", "c3"], [20,30,55], [28,37,45], [10,12,14], [30,30,25], [[17,15,6],[7,7,1],[15,14,3]]);
-    //     expect(result.allocationTable).toEqual([[0,20,0,0],[28,2,0,0],[0,10,45,0],[0,5,0,105]]);
-    //     expect(result.totalCost).toBe(2115);
-    //     expect(result.totalRevenue).toBe(2925);
-    //     expect(result.intermediaryProfit).toBe(810);
-    // });
+    test('Test Case 7', () => {
+        const result = solveIntermediaryProblem(["s1","s2", "s3"], ["c1","c2", "c3"], [20,30,55], [28,37,45], [10,12,14], [30,30,25], [[17,15,6],[7,7,1],[15,14,3]]);
+        expect(result.allocationTable).toEqual([[0,20,0,0],[28,2,0,0],[0,10,45,0],[0,5,0,105]]);
+        expect(result.totalCost).toBe(2115);
+        expect(result.totalRevenue).toBe(2925);
+        expect(result.intermediaryProfit).toBe(810);
+    });
 
-    //zad 8
+    //zad 8 - BALANCED CASE
     test('Test Case 8', () => {
-        const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2"], [20,20], [26,14], [11,8], [17,16], [[11,4],[7,5]]);
+        const result = solveIntermediaryProblem(["s1","s2"], ["c1","c2"], [20,20], [16,14], [11,8], [17,16], [[11,4],[7,5]]);
         expect(result.allocationTable).toEqual([[0,0,20],[6,14,0],[10,0,20]]);
         expect(result.totalCost).toBe(272);
         expect(result.totalRevenue).toBe(326);
@@ -78,14 +78,15 @@ describe('solveIntermediaryProblem Tests', () => {
         expect(result.intermediaryProfit).toBe(116);
     });
 
-    //zad 10 Does not end
-    // test('Test Case 10', () => {
-    //     const result = solveIntermediaryProblem(["s1","s2", "s3"], ["c1","c2", "c3"], [10,17,13], [7,8,11], [12,10,13], [22,20,23], [[3,3,5],[7,7,8],[3,8,6]]);
-    //     expect(result.allocationTable).toEqual([[0,20,0,0],[28,2,0,0],[0,10,45,0],[0,5,0,105]]);
-    //     expect(result.totalCost).toBe(428);
-    //     expect(result.totalRevenue).toBe(567);
-    //     expect(result.intermediaryProfit).toBe(139);
-    // });
+    // zad 10 Does not end
+    test('Test Case 10', () => {
+        const result = solveIntermediaryProblem(["s1","s2", "s3"], ["c1","c2", "c3"], [10,17,13], [7,8,11], [12,10,13], [22,20,23], [[3,3,5],[7,7,8],[3,8,6]]);
+        expect(result.allocationTable).toEqual([[0,20,0,0],[28,2,0,0],[0,10,45,0],[0,5,0,105]]);
+        expect(result.totalCost).toBe(428);
+        expect(result.totalRevenue).toBe(567);
+        expect(result.intermediaryProfit).toBe(139);
+    });
 
 
+    //TODO: e-perturbation case
 });
