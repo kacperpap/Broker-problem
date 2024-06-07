@@ -1,8 +1,11 @@
 const solveIntermediaryProblem = require("./core.js");
 const express = require('express');
+const cors = require('cors')
 
 const app = express();
 app.use(express.json());
+app.use(cors())
+
 
 app.post('/calculate', (req, res) => {
     const { suppliers, consumers, supply, demand, purchaseCosts, sellingCosts, transportationCosts } = req.body;
