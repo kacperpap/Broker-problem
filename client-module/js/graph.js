@@ -14,10 +14,12 @@ export function createChart(totalCost, totalRevenue, intermediaryProfit) {
       ],
     },
     options: {
+      maintainAspectRatio: false,
+      responsive: true,
       legend: { display: false },
       title: {
         display: true,
-        text: "RESULTS",
+        text: "RESULT",
       },
       scales: {
         y: {

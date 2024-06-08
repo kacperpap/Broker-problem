@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Broker problem</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/main.css" type="text/css" />
     <link rel="stylesheet" href="css/results.css" type="text/css" />
     <link
@@ -54,7 +55,7 @@
     </aside>
     <main>
       <form id="main-content">
-        <div id="data-tables">
+        <div class="data-tables">
           <div id="left-div">
             <div class="table-title">
               <h2>Broker problem table</h2>
@@ -240,11 +241,25 @@
           </table>
         </div>
         <input type="submit" value="Calculate" id="submit-input" />
-        <!-- <button id="send-data">Calculate</button> -->
       </form>
+      <div id="loader-wrapper">
+        <span class="loader">
+          <span class="loader-inner"></span>
+        </span>
+      </div>
+
       <section id="results">
-        <canvas id="results-chart"></canvas>
-        <div id="results-info"></div>
+        <div id="chart-container" class="data-tables">
+          <span class="results-table-title">Financial graph</span>
+          <canvas id="results-chart" width="100px" height="100px"></canvas>
+        </div>
+        <div id="results-info" class="data-tables">
+          <span class="results-table-title">Optimal transport table</span>
+          <table id="results-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </section>
     </main>
 

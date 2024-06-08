@@ -42,15 +42,18 @@ function prepareDataToSend() {
   };
 
   // test
-  // const obj2={
-  //   suppliers: ["s1","s2"],
-  //   consumers: ["c1","c2","c3"],
-  //   supply: [20,40],
-  //   demand: [16,12,24],
+  // const objectToSend = {
+  //   suppliers: ["s1", "s2"],
+  //   consumers: ["c1", "c2", "c3"],
+  //   supply: [20, 40],
+  //   demand: [16, 12, 24],
   //   purchaseCosts: [7, 8],
-  //   sellingCosts: [18,16,15],
-  //   transportationCosts: [[4,7,2],[8,10,4]]
-  // }
+  //   sellingCosts: [18, 16, 15],
+  //   transportationCosts: [
+  //     [4, 7, 2],
+  //     [8, 10, 4],
+  //   ],
+  // };
 
   console.log(objectToSend);
   if (validateInputs(objectToSend)) send(objectToSend);
@@ -68,6 +71,8 @@ function validateInputs(objectToSend) {
 
 // Wysłanie zapytania POST
 async function send(dataToSend) {
+  const loader = document.getElementById("loader-wrapper");
+  loader.style.display = "flex";
   try {
     const response = await fetch("http://localhost:3000/calculate", {
       method: "POST",
@@ -78,13 +83,27 @@ async function send(dataToSend) {
     });
 
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Response from calculating module was wrong",
+        footer: "Try different example",
+      });
+      // throw new Error("Network response was not ok");
     }
 
     const data = await response.json();
     console.log("Data successfully fetched", data);
     showResults(data);
   } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong",
+      footer: "Try again later",
+    });
     console.error("Error:", error);
   }
+
+  loader.style.display = "none";
 }
