@@ -4,12 +4,17 @@ export function createTable(data) {
     titles[i].style.position = "relative";
   }
 
-  //TODO: clear previous table
-
-  // creating table
+  // clear previous table
   const tableBody = document.querySelector("#results-table tbody");
   const tableHead = document.querySelector("#results-table thead");
+  removeTableRows(tableBody);
+  removeTableRows(tableHead);
 
+  // creating table
+  addTableRows(tableHead, tableBody, data);
+}
+
+function addTableRows(tableHead, tableBody, data) {
   const row = document.createElement("tr");
   const specialCell = createCell("");
   specialCell.setAttribute("id", "special-cell");
@@ -34,4 +39,10 @@ function createCell(value) {
   const cell = document.createElement("td");
   cell.textContent = value;
   return cell;
+}
+
+function removeTableRows(toRemove) {
+  while (toRemove.firstChild) {
+    toRemove.removeChild(toRemove.firstChild);
+  }
 }
