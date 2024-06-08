@@ -238,3 +238,9 @@ main {
   opacity: 0.97;
   font-size: 1.2rem;
 }
+
+footer{
+  background-color: none;
+  /* text-align: center; */
+  padding: 5px 0 10px 20px;
+}
