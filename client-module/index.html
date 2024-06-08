@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/main.css" type="text/css" />
     <link rel="stylesheet" href="css/results.css" type="text/css" />
+    <link rel="stylesheet" href="css/form.css" type="text/css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -24,250 +25,260 @@
         <span class="smaller-text">Simple solution</span>
       </h1>
     </header>
-    <aside>
-      <span id="legend">
-        <span id="legend-title"
-          ><b>Legend</b>&nbsp;<i class="fa-solid fa-truck-fast"></i
-        ></span>
-        <ul>
-          <li>
-            <b>Supply</b> - quantity of a product that specific
-            <b>supplier</b> offers
-          </li>
-          <li>
-            <b>Buying cost</b> - price offered by <b>supplier</b> for a single
-            product
-          </li>
-          <li>
-            <b>Demand</b> - quantity of a product that specific
-            <b>consumer</b> require
-          </li>
-          <li>
-            <b>Sales price</b> - price that <b>consumer</b> is willing to pay
-            for a single product
-          </li>
-          <li>
-            <b>Cost of transport</b> - unitary cost of transportation from
-            specific <b>supplier</b> to specific <b>consumer</b>
-          </li>
-        </ul>
-      </span>
-    </aside>
-    <main>
-      <form id="main-content">
-        <div class="data-tables">
-          <div id="left-div">
-            <div class="table-title">
-              <h2>Broker problem table</h2>
-              <span class="smaller-text">Fill all inputs in a table</span>
-            </div>
-            <table id="suppliers">
-              <tr>
-                <td class="thead-sup">Supplier 1</td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="supply"
-                    class="supply-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="buying cost"
-                    class="buy-input"
-                    required
-                    min="0"
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <td class="thead-sup">Supplier 2</td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="supply"
-                    class="supply-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="buying cost"
-                    class="buy-input"
-                    required
-                    min="0"
-                  />
-                </td>
-              </tr>
-            </table>
-          </div>
-
-          <table id="customers">
-            <thead>
-              <tr>
-                <th>Customer 1</th>
-                <th>Customer 2</th>
-                <th>Customer 3</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="demand"
-                    class="demand-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="demand"
-                    class="demand-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="demand"
-                    class="demand-input"
-                    required
-                    min="0"
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="sales price"
-                    class="sales-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="sales price"
-                    class="sales-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="sales price"
-                    class="sales-input"
-                    required
-                    min="0"
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="cost of transport"
-                    class="cost-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="cost of transport"
-                    class="cost-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="cost of transport"
-                    class="cost-input"
-                    required
-                    min="0"
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="cost of transport"
-                    class="cost-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="cost of transport"
-                    class="cost-input"
-                    required
-                    min="0"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="cost of transport"
-                    class="cost-input"
-                    required
-                    min="0"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <div>
+      <aside>
+        <div id="legend">
+          <span id="legend-title"
+            ><b>Legend</b>&nbsp;<i class="fa-solid fa-truck-fast"></i
+          ></span>
+          <ul>
+            <li>
+              <b>Supply</b> - quantity of a product that specific
+              <b>supplier</b> offers
+            </li>
+            <li>
+              <b>Buying cost</b> - price offered by <b>supplier</b> for a single
+              product
+            </li>
+            <li>
+              <b>Demand</b> - quantity of a product that specific
+              <b>consumer</b> require
+            </li>
+            <li>
+              <b>Sales price</b> - price that <b>consumer</b> is willing to pay
+              for a single product
+            </li>
+            <li>
+              <b>Cost of transport</b> - unitary cost of transportation from
+              specific <b>supplier</b> to specific <b>consumer</b>
+            </li>
+          </ul>
         </div>
-        <input type="submit" value="Calculate" id="submit-input" />
-      </form>
-      <div id="loader-wrapper">
-        <span class="loader">
-          <span class="loader-inner"></span>
-        </span>
-      </div>
-
-      <section id="results">
         <div id="chart-container" class="data-tables">
           <span class="results-table-title">Financial graph</span>
-          <canvas id="results-chart" width="100px" height="100px"></canvas>
+          <canvas id="results-chart"></canvas>
         </div>
-        <div id="results-info" class="data-tables">
-          <span class="results-table-title">Optimal transport table</span>
-          <table id="results-table">
-            <thead></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
+        <footer>
+          <span
+            >brokerproblem.pl&nbsp;&nbsp;<i class="fa-solid fa-truck-fast"></i
+            >&nbsp;&nbsp;2024</span
+          >
+        </footer>
+      </aside>
+      <main>
+        <form id="main-content">
+          <div class="data-tables">
+            <div id="left-div">
+              <div class="table-title">
+                <h2>Broker problem table</h2>
+                <span class="smaller-text">Fill all inputs in a table</span>
+              </div>
+              <table id="suppliers">
+                <tr>
+                  <td class="thead-sup">Supplier 1</td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="supply"
+                      class="supply-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="buying cost"
+                      class="buy-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                </tr>
 
-    <footer>
-      <span>brokerproblem.pl&nbsp;&nbsp;<i class="fa-solid fa-truck-fast"></i>&nbsp;&nbsp;2024</span>
-     </footer>
+                <tr>
+                  <td class="thead-sup">Supplier 2</td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="supply"
+                      class="supply-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="buying cost"
+                      class="buy-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <table id="customers">
+              <thead>
+                <tr>
+                  <th>Customer 1</th>
+                  <th>Customer 2</th>
+                  <th>Customer 3</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="demand"
+                      class="demand-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="demand"
+                      class="demand-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="demand"
+                      class="demand-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="sales price"
+                      class="sales-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="sales price"
+                      class="sales-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="sales price"
+                      class="sales-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="cost of transport"
+                      class="cost-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="cost of transport"
+                      class="cost-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="cost of transport"
+                      class="cost-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="cost of transport"
+                      class="cost-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="cost of transport"
+                      class="cost-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      placeholder="cost of transport"
+                      class="cost-input"
+                      required
+                      min="0"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <input type="submit" value="Calculate" id="submit-input" />
+        </form>
+        <div id="loader-wrapper">
+          <span class="loader">
+            <span class="loader-inner"></span>
+          </span>
+        </div>
+
+        <section id="results">
+          <div id="results-info" class="data-tables results-container">
+            <span class="results-table-title">Optimal transport table</span>
+            <table id="results-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div id="results-info2" class="data-tables results-container">
+            <span class="results-table-title">Individual profits table</span>
+            <table id="results-table2">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <script type="module" src="js/input-manager.js"></script>
-  
   </body>
 </html>

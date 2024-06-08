@@ -4,6 +4,13 @@ import { createTable } from "./table.js";
 export function showResults(data) {
   console.log(data);
 
+  // TITLES
+  const titles = document.getElementsByClassName("results-table-title");
+  for (let i = 0; i < titles.length; i++) {
+    titles[i].style.position = "relative";
+  }
+
+
   // CHART
   const chart = createChart(
     data.totalCost,
@@ -11,6 +18,7 @@ export function showResults(data) {
     data.intermediaryProfit
   );
 
-  // TABLE
-  createTable(data);
+  // TABLES
+  createTable(data.allocationTable, "results-table");
+  createTable(data.unitProfits, "results-table2");
 }

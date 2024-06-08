@@ -1,12 +1,7 @@
-export function createTable(data) {
-  const titles = document.getElementsByClassName("results-table-title");
-  for (let i = 0; i < titles.length; i++) {
-    titles[i].style.position = "relative";
-  }
-
+export function createTable(data, tableID) {
   // clear previous table
-  const tableBody = document.querySelector("#results-table tbody");
-  const tableHead = document.querySelector("#results-table thead");
+  const tableBody = document.querySelector("#" + tableID +" tbody");
+  const tableHead = document.querySelector("#" + tableID +" thead");
   removeTableRows(tableBody);
   removeTableRows(tableHead);
 
@@ -17,17 +12,23 @@ export function createTable(data) {
 function addTableRows(tableHead, tableBody, data) {
   const row = document.createElement("tr");
   const specialCell = createCell("");
-  specialCell.setAttribute("id", "special-cell");
+  specialCell.setAttribute("class", "special-cell");
+  specialCell.innerHTML="X"
 
   row.appendChild(specialCell);
-  row.appendChild(createCell("Consumer 1"));
-  row.appendChild(createCell("Consumer 2"));
-  row.appendChild(createCell("Consumer 3"));
+  row.appendChild(createCell("C 1"));
+  row.appendChild(createCell("C 2"));
+  row.appendChild(createCell("C 3"));
+  row.appendChild(createCell(" F "));
   tableHead.appendChild(row);
 
-  data.allocationTableRealRoutes.forEach((item, index) => {
+  data.forEach((item, index) => {
+    console.log("eeee");
     const row = document.createElement("tr");
-    row.appendChild(createCell("Supplier" + (index + 1)));
+    if(data.length === index+1)
+      row.appendChild(createCell(" F "));
+    else
+      row.appendChild(createCell("S" + (index + 1)));
     item.forEach((v) => {
       row.appendChild(createCell(v));
     });
@@ -43,6 +44,7 @@ function createCell(value) {
 
 function removeTableRows(toRemove) {
   while (toRemove.firstChild) {
+    console.log("eeeee");
     toRemove.removeChild(toRemove.firstChild);
   }
 }

@@ -1,28 +1,28 @@
 #results {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin: 30px 0 30px 27%;
-  width: 70%;
-  min-width: 400px;
-  height: 300px;
+  margin: 30px 0 30px 0;
+  width: 90%;
+  max-height: 500px;
+  min-height: 300px;
 }
 
-#chart-container,
-#results-info {
-  display: flex;
+#results .data-tables th, #results .data-tables td{
+  border: var(--main-green) 1px solid;
+}
+
+#results .results-container {
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 47%;
-  height: auto;
 }
 
 #loader-wrapper {
   display: none;
   margin-top: 15px;
-  margin-left: 27%;
   width: 73%;
   /* display: flex; */
   justify-content: center;
@@ -101,11 +101,28 @@
   margin-bottom: auto;
 }
 
-#results-table td {
+#results-table td, #results-table2 td {
   text-align: center;
   font-size: medium;
 }
 
-#special-cell {
+.special-cell {
   background-color: var(--main);
+  color: var(--main-green);
+}
+
+
+#chart-container{
+  display: block;
+  padding: 10px;
+  margin: 30px;
+  min-width: 0;
+  height: 350px;
+  background-color: #e6e2d74f;
+  border: var(--main) 2px solid;
+  color: var(--main);
+}
+
+#results-char{
+  color: var(--main);
 }

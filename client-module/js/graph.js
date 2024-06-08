@@ -15,7 +15,7 @@ export function createChart(totalCost, totalRevenue, intermediaryProfit) {
     },
     options: {
       maintainAspectRatio: false,
-      responsive: true,
+      // responsive: true,
       legend: { display: false },
       title: {
         display: true,
