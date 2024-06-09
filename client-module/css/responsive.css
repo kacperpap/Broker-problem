@@ -35,6 +35,10 @@
   .data-tables thead tr, .thead-sup, #submit-input{
     color: var(--main);
   }
+
+  #table-maker-container{
+    width: 95%;
+  }
 }
 
 @media only screen and (max-width: 800px){

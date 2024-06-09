@@ -62,7 +62,7 @@
       </aside>
       <main>
         <form id="main-content">
-          <div>
+          <div id="table-maker-container">
             <label for="rows">Number of suppliers:</label>
             <input
               type="number"
@@ -79,7 +79,7 @@
               max="5"
               value="2"
             />
-            <button id="generate-tables">Generate table</button>
+            <button id="generate-tables" class="submit-buttons">Generate table</button>
           </div>
 
           <div class="data-tables">
@@ -94,7 +94,7 @@
 
             <table id="customers"></table>
           </div>
-          <input type="submit" value="Calculate" id="submit-input" />
+          <input type="submit" value="Calculate" id="submit-input" class="submit-buttons"/>
         </form>
         <div id="loader-wrapper">
           <span class="loader">

@@ -2,6 +2,10 @@ document
   .getElementById("generate-tables")
   .addEventListener("click", generateTables);
 
+document.addEventListener("DOMContentLoaded", () => {
+  generateTables();
+});
+
 function generateTables() {
   supplierTable();
   try {

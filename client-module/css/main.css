@@ -75,6 +75,25 @@ aside {
   font-size: 1.2rem;
 }
 
+#table-maker-container{
+  color: var(--main-green);
+  font-size: large;
+  letter-spacing:0.03rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: 90%;
+  margin: 0 auto 20px auto;
+}
+
+#suppliers-number, #customers-number{
+  width: 180px;
+}
+#generate-tables{
+  width: auto;
+}
+
 footer {
   color: var(--main-dark);
   padding: 5px 0 10px 0;

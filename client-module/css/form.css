@@ -40,7 +40,7 @@
   padding: 12px 15px;
 }
 
-.data-tables input {
+main input {
   font-family: inherit;
   width: 100%;
   border: 0;
@@ -71,7 +71,7 @@
   border-image-slice: 1;
 }
 
-#submit-input {
+.submit-buttons {
   display: block;
   background-color: var(--main-green);
   border: 1px solid transparent;

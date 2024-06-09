@@ -1,4 +1,4 @@
-import { showResults } from "./output-manager.js";
+import { send } from "./send-request.js";
 
 document.getElementById("main-content").addEventListener("submit", (event) => {
   event.preventDefault();
@@ -6,104 +6,95 @@ document.getElementById("main-content").addEventListener("submit", (event) => {
 });
 
 function prepareDataToSend() {
-  const suppliers = ["Supplier1", "Supplier2"];
-  const consumers = ["Consumer1", "Consumer2", "Consumer3"];
+  const tableS = document.getElementById("suppliers").innerHTML;
+  const tableC = document.getElementById("suppliers").innerHTML;
+  if (tableS === "" || tableC === "") showEmptyTablesWarning();
+  else {
+    const supply = Array.from(
+      document.getElementsByClassName("supply-input")
+    ).map((input) => parseInt(input.value), 10);
+    const demand = Array.from(
+      document.getElementsByClassName("demand-input")
+    ).map((input) => parseInt(input.value), 10);
+    const purchaseCosts = Array.from(
+      document.getElementsByClassName("buy-input")
+    ).map((input) => parseInt(input.value), 10);
 
-  const supply = Array.from(
-    document.getElementsByClassName("supply-input")
-  ).map((input) => parseInt(input.value), 10);
-  const demand = Array.from(
-    document.getElementsByClassName("demand-input")
-  ).map((input) => parseInt(input.value), 10);
-  const purchaseCosts = Array.from(
-    document.getElementsByClassName("buy-input")
-  ).map((input) => parseInt(input.value), 10);
+    const sellingCosts = Array.from(
+      document.getElementsByClassName("sales-input")
+    ).map((input) => parseInt(input.value), 10);
 
-  const sellingCosts = Array.from(
-    document.getElementsByClassName("sales-input")
-  ).map((input) => parseInt(input.value), 10);
+    const transportTmp = Array.from(
+      document.getElementsByClassName("cost-input")
+    );
 
-  const transportTmp = Array.from(
-    document.getElementsByClassName("cost-input")
-  );
-  const transportationCosts = [
-    transportTmp.map((input) => parseInt(input.value), 10).slice(0, 3),
-    transportTmp.map((input) => parseInt(input.value), 10).slice(3, 6),
-  ];
+    const supplierNumber = supply.length;
+    const consumersNumber = demand.length;
+    const transportationCosts = [];
 
-  const objectToSend = {
-    suppliers,
-    consumers,
-    supply,
-    demand,
-    purchaseCosts,
-    sellingCosts,
-    transportationCosts,
-  };
-
-  // test
-  // const objectToSend = {
-  //   suppliers: ["s1", "s2"],
-  //   consumers: ["c1", "c2", "c3"],
-  //   supply: [20, 40],
-  //   demand: [16, 12, 24],
-  //   purchaseCosts: [7, 8],
-  //   sellingCosts: [18, 16, 15],
-  //   transportationCosts: [
-  //     [4, 7, 2],
-  //     [8, 10, 4],
-  //   ],
-  // };
-
-  console.log(objectToSend);
-  if (validateInputs(objectToSend)) send(objectToSend);
-  else alert("Please fill out all fields.");
-}
-
-function validateInputs(objectToSend) {
-  Object.entries(objectToSend).forEach(([key, value]) => {
-    if (Array.isArray(value)) {
-      if (value.includes(undefined)) return false;
-    }
-  });
-  return true;
-}
-
-// Wysłanie zapytania POST
-async function send(dataToSend) {
-  const loader = document.getElementById("loader-wrapper");
-  loader.style.display = "flex";
-  try {
-    const response = await fetch("http://localhost:3000/calculate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataToSend),
-    });
-
-    if (!response.ok) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Response from calculating module was wrong",
-        footer: "Try different example",
-      });
-      // throw new Error("Network response was not ok");
+    for (let i = 0; i < supplierNumber; i++) {
+      transportationCosts.push(
+        transportTmp
+          .map((input) => parseInt(input.value), 10)
+          .slice(i * consumersNumber, (i + 1) * consumersNumber)
+      );
     }
 
-    const data = await response.json();
-    console.log("Data successfully fetched", data);
-    showResults(data);
-  } catch (error) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Something went wrong",
-      footer: "Try again later",
-    });
-    console.error("Error:", error);
+    const suppliers = [];
+    const consumers = [];
+    for (let i = 0; i < supplierNumber; i++) {
+      suppliers.push("S" + (i + 1));
+    }
+    for (let i = 0; i < consumersNumber; i++) {
+      consumers.push("C" + (i + 1));
+    }
+
+    const objectToSend = {
+      suppliers,
+      consumers,
+      supply,
+      demand,
+      purchaseCosts,
+      sellingCosts,
+      transportationCosts,
+    };
+
+    // is balanced
+    let sum1 = supply.reduce((sum, e) => sum + e, 0);
+    let sum2 = demand.reduce((sum, e) => sum + e, 0);
+    let balanced = false;
+    if (sum1 === sum2) {
+      balanced = true;
+    }
+
+    //send 
+    console.log(objectToSend);
+    send(objectToSend, balanced);
   }
-
-  loader.style.display = "none";
 }
+
+function showEmptyTablesWarning() {
+  Swal.fire({
+    position: "top-end",
+    icon: "warning",
+    title: "Please fill table with valid data",
+    footer: "First choose number of customers and suppliers",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+
+// TEST data
+// const objectToSend = {
+//   suppliers: ["s1", "s2"],
+//   consumers: ["c1", "c2", "c3"],
+//   supply: [20, 40],
+//   demand: [16, 12, 24],
+//   purchaseCosts: [7, 8],
+//   sellingCosts: [18, 16, 15],
+//   transportationCosts: [
+//     [4, 7, 2],
+//     [8, 10, 4],
+//   ],
+// };
