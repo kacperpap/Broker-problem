@@ -1,3 +1,4 @@
+/* main css */
 * {
   box-sizing: border-box;
 }
@@ -11,9 +12,8 @@
 
 body {
   margin: 0;
-  /* background-color: var(--main); */
-  background: rgb(162, 123, 92);
-  background: linear-gradient(90deg, var(--second) 25%, var(--main) 25%);
+  background-color: var(--main);
+  background: linear-gradient(90deg, var(--second) 23%, var(--main) 23%);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -29,9 +29,61 @@ h1 {
   transition: 1s all;
 }
 h1:hover {
-  color: var(--main);
+  color: var(--second);
 }
 
+#content-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 73%;
+  margin-right: 2%;
+  margin-left: 2%;
+  /* background-image: url(../resources/logo.png);
+  background-size:70%;
+  background-repeat: no-repeat;
+  background-position: center; */
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 23%;
+}
+
+#legend {
+  display: block;
+  letter-spacing: 0.05rem;
+  color: var(--main-green);
+  padding: 10px 5px 10px 5px;
+  text-align: justify;
+  margin: 0 20px 0 20px;
+}
+
+#legend-title {
+  font-size: 1.2rem;
+}
+
+footer {
+  color: var(--main-dark);
+  padding: 5px 0 10px 0;
+  margin-top: 20px;
+  width: 23%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- home title animation ---- */
 .smaller-text {
   font-size: 1.1rem;
   font-weight: 100;
@@ -40,6 +92,7 @@ h1:hover {
 .table-title {
   padding: 20px;
   font-weight: 100;
+  color: var(--main-green);
 }
 
 .home-title span {
@@ -106,43 +159,3 @@ h1:hover {
   }
 }
 
-main {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 71%;
-  margin-right: 2%;
-  margin-left: auto;
-  float: right;
-}
-
-aside{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 23%;
-  float:left;
-}
-
-#legend {
-  display: block;
-  letter-spacing: 0.05rem;
-  height: 30%;
-  color: var(--main-green);
-  padding: 10px 5px 10px 5px;
-  text-align: justify;
-  margin-left: 2%;
-}
-
-#legend-title {
-  font-size: 1.2rem;
-}
-
-
-footer{
-  padding: 5px 0 10px 20px;
-  margin-bottom: 0;
-  margin-top: auto;
-}

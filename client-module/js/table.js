@@ -30,7 +30,7 @@ function addTableRows(tableHead, tableBody, data) {
     else
       row.appendChild(createCell("S" + (index + 1)));
     item.forEach((v) => {
-      row.appendChild(createCell(v));
+      row.appendChild(createCell(parseInt(v)));
     });
     tableBody.appendChild(row);
   });
@@ -44,7 +44,6 @@ function createCell(value) {
 
 function removeTableRows(toRemove) {
   while (toRemove.firstChild) {
-    console.log("eeeee");
     toRemove.removeChild(toRemove.firstChild);
   }
 }

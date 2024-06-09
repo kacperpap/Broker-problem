@@ -4,14 +4,12 @@ import { createTable } from "./table.js";
 export function showResults(data) {
   console.log(data);
 
-  // TITLES
-  const titles = document.getElementsByClassName("results-table-title");
-  for (let i = 0; i < titles.length; i++) {
-    titles[i].style.position = "relative";
-  }
-
-
   // CHART
+  const chartTitle = document.querySelector(
+    "#chart-container .results-table-title"
+  );
+  chartTitle.style.display = "none";
+
   const chart = createChart(
     data.totalCost,
     data.totalRevenue,

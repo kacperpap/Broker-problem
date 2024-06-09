@@ -1,6 +1,4 @@
-#main-content {
-  min-width: 850px;
-}
+/* input table css */
 
 .data-tables {
   display: flex;
@@ -10,22 +8,19 @@
   margin: 0 0 12px 0;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 400px;
+  /* min-width: 400px; */
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4.1px);
   -webkit-backdrop-filter: blur(4.1px);
+  color: var(--main-green);
 }
 
 #left-div {
   flex-grow: 1;
   width: 45%;
   align-self: flex-end;
-}
-
-#suppliers {
-  height: auto;
 }
 
 #customers {

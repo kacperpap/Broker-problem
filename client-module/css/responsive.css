@@ -1,0 +1,55 @@
+/* responsive */
+@media only screen and (max-width: 1300px) {
+  :root {
+    --main-green: #e6e2d7;
+    --main-dark: #e6e2d7;
+    --main: #323c3d;
+  }
+
+  #content-container {
+    flex-direction: column-reverse;
+  }
+
+  body {
+    background: var(--main);
+  }
+
+  main,
+  footer,
+  aside {
+    width: 95%;
+  }
+
+  aside {
+    flex-direction: row;
+  }
+  header {
+    margin-left: 0%;
+  }
+
+
+  #chart-container {
+    background-color: var(--main-dark);
+    color: var(--main);
+  }
+  .data-tables thead tr, .thead-sup, #submit-input{
+    color: var(--main);
+  }
+}
+
+@media only screen and (max-width: 800px){
+    aside {
+        flex-direction: column;
+      }
+    .data-tables{
+        flex-direction: column;
+        align-items: center;
+    }
+    #left-div{
+        width:100%;
+        margin-bottom: 10px;
+    }
+    #results .results-container {
+        width: 100%;
+    }
+}
