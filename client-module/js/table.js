@@ -23,7 +23,6 @@ function addTableRows(tableHead, tableBody, data) {
   tableHead.appendChild(row);
 
   data.forEach((item, index) => {
-    console.log("eeee");
     const row = document.createElement("tr");
     if(data.length === index+1)
       row.appendChild(createCell(" F "));
