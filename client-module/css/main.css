@@ -43,6 +43,7 @@ main {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  align-content: center;
   flex-wrap: wrap;
   width: 73%;
   margin-right: 2%;
