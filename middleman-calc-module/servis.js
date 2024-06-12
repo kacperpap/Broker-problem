@@ -34,7 +34,7 @@ app.post('/calculate', async (req, res) => {
                 intermediaryProfit: result.intermediaryProfit,
             }
         });
-        return res.json(dbResult);
+        return res.json(result);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Error saving result to database' });
