@@ -1,12 +1,12 @@
 {
-  "name": "posrednik",
+  "name": "middleman-calc-module",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend part of broker/middleman problem",
   "main": "middleman-calc-module/servis.js",
   "scripts": {
     "test": "jest",
-    "backend": "node middleman-calc-module/servis.js",
-    "backend-dev": "node --watch middleman-calc-module/servis.js"
+    "backend": "node servis.js",
+    "backend-dev": "node --watch servis.js"
   },
   "private": true,
   "dependencies": {
