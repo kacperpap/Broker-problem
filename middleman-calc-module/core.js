@@ -62,8 +62,11 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
     }
 
     let optimized = false;
-    while (!optimized) {
-        console.log("Optimizing solution:");
+    let stepCount = 0;
+    const maxSteps = 100;
+
+    while (!optimized && stepCount < maxSteps) {
+        console.log(`Optimizing solution (Step ${stepCount + 1}):`);
         const { deltas, deltaTable } = calculateDeltas(allocationTable, unitProfits);
         console.log("Calculated deltas (z_ij - u_i - v_j = 0):");
         console.log(deltas);
@@ -102,6 +105,18 @@ function solveIntermediaryProblem(suppliers, consumers, supply, demand, purchase
             deltaTable,
             intermediaryProfit
         });
+
+        stepCount++;
+    }
+
+    if (stepCount === maxSteps && !optimized) {
+        console.log("Optimization reached the maximum number of steps without fully optimizing.");
+        if (steps.length === 0) {
+            return { error: "Optimization reached the maximum number of steps without fully optimizing and no valid steps found." };
+        } else {
+            let bestStep = steps.reduce((max, step) => step.intermediaryProfit > max.intermediaryProfit ? step : max, steps[0]);
+            return { error: "Optimization reached the maximum number of steps without fully optimizing.", bestStep };
+        }
     }
 
     let bestStep = steps.reduce((max, step) => step.intermediaryProfit > max.intermediaryProfit ? step : max, steps[0]);
